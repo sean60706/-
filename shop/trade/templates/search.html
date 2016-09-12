@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<!-- 最新編譯和最佳化的 CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+	<!-- 選擇性佈景主題 -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+
+	<style>{
+		th {text-align:center;}
+		div.menys{
+			text-align: center;
+			padding:40px 15px;
+		}
+	}
+	</style>
+
+	
+
+</head>
+<body>
+
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" 
+						class="navbar-toggle cooapsed" 
+						data-toggle="collapse"
+						data-target="#navbar"
+						aria-expanded="false"
+						aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/index/">Shop</a>
+			</div>	
+		</div>
+	</nav>
+	<br>
+	<br>
+	<br>
+	<div class="container">
+		{%comment%}
+			下面這部分是navbar的部分，先手幹，後面再套用template模組分離出來
+		{%endcomment%}
+
+		
+			<form action="" method="post"> {% csrf_token%}
+				<tr>
+					<td>
+						<label>編號</label>
+					</td>
+					<td>
+						<input type="text" name="new_id" value="{{id}}">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>名稱</label>
+					</td>
+					<td>
+						<input type="text" name="new_name" value="{{name}}">
+					</td>
+				</tr>
+				<input type="submit" name="" value="送出">	
+			</form>
+			<table>
+				
+					{% for r in restaurants %}
+						<tr>
+							<td>
+								
+								<img src="{{r.photo}}">
+							</td>
+							<td>
+								<a href="/shop_info/{{r.id}}/"><p>{{r.name}}</p></a>
+								<p>{{r.area}}</p>
+								
+							</td>
+
+						</tr>
+					{% endfor %}
+
+			</table>
+
+		
+		
+	</div>
+	
+
+	{% comment %}
+		我是可愛的多行註解
+	{% endcomment%}
+	<!-- 最新編譯和最佳化的 JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+</body>
+</html>
+

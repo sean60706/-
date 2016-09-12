@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<!-- 最新編譯和最佳化的 CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+	<!-- 選擇性佈景主題 -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+
+	<style>{
+		th {text-align:center;}
+		div.menys{
+			text-align: center;
+			padding:40px 15px;
+		}
+	}
+	</style>
+
+	
+
+</head>
+<body>
+
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" 
+						class="navbar-toggle cooapsed" 
+						data-toggle="collapse"
+						data-target="#navbar"
+						aria-expanded="false"
+						aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/index/">Shop</a>
+			</div>	
+		</div>
+	</nav>
+	<br>
+	<br>
+	<br>
+	<div class="container">
+		{%comment%}
+			下面這部分是navbar的部分，先手幹，後面再套用template模組分離出來
+		{%endcomment%}
+
+
+		<ul>
+			<li>
+				<a href="/index/">index</a>
+			</li>
+			{% if request.user.is_authenticated %}
+				
+				{% if perms.restaurants.have_shop %}	
+					<li><a href="/manage_menu/">菜單編輯</a></li>
+					<li><a href="/manage_info/">資訊編輯</a></li>
+					<li><a href="">訂單處理</a></li>
+					<li><a href="">交易處理</a></li>
+				{% else %}
+					<li><a href="/buyer_data/">資料編輯</a></li>
+					<li><a href="">交易紀錄</a></li>
+					<li><a href="">出貨狀況</a></li>
+				{% endif %}
+
+
+			{% endif %}
+
+			<li><a href="/search/">搜尋店家</a></li>
+
+		</ul>
+		<p>您現在的位置在{{path}},id為{{id}}</p>
+		{% if request.user.is_authenticated %}
+			<p>{{request.user.username}}您已經登入瞜 <a href="/accounts/logout/">登出</a></p>
+			{% if perms.restaurants.have_shop %}
+
+
+				<p>賣家身分</p>
+			{% else %}
+				<p>買家身分</p>
+			{% endif %}
+
+
+		{%else%}
+			<p>您尚未登入</p>
+			<a href="/accounts/login/">登入</a>
+			<a href="/accounts/register/">註冊</a>
+		{% endif %}
+	</div>
+	
+
+	{% comment %}
+		我是可愛的多行註解
+	{% endcomment%}
+	<!-- 最新編譯和最佳化的 JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+</body>
+</html>
+

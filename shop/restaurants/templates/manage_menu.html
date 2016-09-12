@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<!-- 最新編譯和最佳化的 CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+	<!-- 選擇性佈景主題 -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+
+	<style>{
+		th {text-align:center;}
+		div.menys{
+			text-align: center;
+			padding:40px 15px;
+		}
+	}
+	</style>
+
+	
+
+</head>
+<body>
+
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" 
+						class="navbar-toggle cooapsed" 
+						data-toggle="collapse"
+						data-target="#navbar"
+						aria-expanded="false"
+						aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/index/">Shop</a>
+			</div>	
+		</div>
+	</nav>
+	<br>
+	<br>
+	<br>
+	<div class="container">
+		{%comment%}
+			下面這部分是navbar的部分，先手幹，後面再套用template模組分離出來
+		{%endcomment%}
+
+		{%comment%}
+		<ul>
+			<li>
+				<a href="/index/">index</a>
+			</li>
+			{% if request.user.is_authenticated %}
+				
+				{% if perms.restaurants.have_shop %}	
+					<li><a href="">菜單編輯</a></li>
+					<li><a href="">資訊編輯</a></li>
+					<li><a href="">訂單處理</a></li>
+					<li><a href="">交易處理</a></li>
+				{% else %}
+					<li><a href="">資料編輯</a></li>
+					<li><a href="">交易紀錄</a></li>
+					<li><a href="">出貨狀況</a></li>
+				{% endif %}
+
+
+			{% endif %}
+
+			<li><a href="">搜尋店家</a></li>
+		</ul>
+
+		{%endcomment%}
+
+		<p>您現在的位置在{{path}}</p>
+		
+		{% if request.user.is_authenticated %}
+			<form action="" method="post"> {% csrf_token%}
+				
+				<table class="table">	
+					{%if restaurant.food_set.all %}
+						{%for f in restaurant.food_set.all %}
+							
+							<tr>
+								<td>
+									<a href="/manage_menu_data/{{f.id}}/"><p>{{f.name}}</p></a>
+								</td>
+								<td>
+									{{f.price}}
+								</td>
+								<td>
+									{{f.ingredient}}
+								</td>
+								<td>
+									{{f.comment}}
+								</td>
+								<td>
+									<a href="/delete_menu/{{f.id}}/">刪除</a>
+								</td>
+							</tr>
+						{% endfor %}
+					{%else%}
+						<p>目前沒有任何菜單</p>
+					{%endif%}
+					
+				</table>
+				<a href="/new_menu/">新增菜單</a>
+				<input type="submit" name="" value="送出">	
+			</form>
+
+
+		{% endif %}
+		
+	</div>
+	
+
+	{% comment %}
+		我是可愛的多行註解
+	{% endcomment%}
+	<!-- 最新編譯和最佳化的 JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+</body>
+</html>
+
